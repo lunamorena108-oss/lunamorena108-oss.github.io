@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luna Morena - Merch Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #00d4ff;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #a84ef8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+        
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        nav a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 10px #00d4ff;
+        }
+        
+        .cart-icon {
+            cursor: pointer;
+            font-size: 20px;
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #00d4ff;
+            color: #000;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(180deg, rgba(0, 212, 255, 0.1) 0%, transparent 100%);
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00d4ff, #a84ef8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #b0b0b0;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #00d4ff, #a84ef8);
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5);
+        }
+        
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 60px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #00d4ff;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #a84ef8, #00d4ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .product-desc {
+            font-size: 14px;
+            color: #b0b0b0;
+            margin-bottom: 15px;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        
+        .add-btn {
+            background: linear-gradient(45deg, #00d4ff, #a84ef8);
+            color: #000;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .add-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .footer {
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 2px solid #00d4ff;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+        
+        .footer-section a {
+            display: block;
+            color: #b0b0b0;
+            text-decoration: none;
+            margin: 8px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: #00d4ff;
+        }
+        
+        .copyright {
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            color: #666;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: #1a1a2e;
+            margin: 10% auto;
+            padding: 40px;
+            width: 90%;
+            max-width: 600px;
+            border: 2px solid #00d4ff;
+            border-radius: 15px;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-50px); }
+            to { transform: translateY(0); }
+        }
+        
+        .close {
+            color: #00d4ff;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close:hover {
+            color: #a84ef8;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .cart-empty {
+            text-align: center;
+            padding: 40px;
+            color: #b0b0b0;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🌙 LUNA MORENA</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#merch">Merch</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <div class="cart-icon" onclick="openCart()">
+                🛒 Cart
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <h1>LUNA MORENA MERCH</h1>
+        <p>Rep the vibe. Own the style.</p>
+        <button class="cta-button" onclick="document.getElementById('merch').scrollIntoView({behavior: 'smooth'})">
+            Shop Now
+        </button>
+    </section>
+
+    <section class="products" id="merch">
+        <div class="product-card">
+            <div class="product-image">👕</div>
+            <div class="product-info">
+                <div class="product-name">Classic T-Shirt</div>
+                <div class="product-desc">Premium cotton blend. Available in multiple colors.</div>
+                <div class="product-footer">
+                    <span class="price">$24.99</span>
+                    <button class="add-btn" onclick="addToCart('Classic T-Shirt', 24.99)">Add</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">🧢</div>
+            <div class="product-info">
+                <div class="product-name">Snapback Hat</div>
+                <div class="product-desc">Embroidered logo. Adjustable fit for all head sizes.</div>
+                <div class="product-footer">
+                    <span class="price">$29.99</span>
+                    <button class="add-btn" onclick="addToCart('Snapback Hat', 29.99)">Add</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">☕</div>
+            <div class="product-info">
+                <div class="product-name">Coffee Mug</div>
+                <div class="product-desc">Ceramic mug. Perfect for your morning brew.</div>
+                <div class="product-footer">
+                    <span class="price">$14.99</span>
+                    <button class="add-btn" onclick="addToCart('Coffee Mug', 14.99)">Add</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">🎒</div>
+            <div class="product-info">
+                <div class="product-name">Backpack</div>
+                <div class="product-desc">Durable canvas. Spacious compartments for everything.</div>
+                <div class="product-footer">
+                    <span class="price">$49.99</span>
+                    <button class="add-btn" onclick="addToCart('Backpack', 49.99)">Add</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">🧤</div>
+            <div class="product-info">
+                <div class="product-name">Hoodie</div>
+                <div class="product-desc">Cozy fleece-lined. Kangaroo pocket design.</div>
+                <div class="product-footer">
+                    <span class="price">$54.99</span>
+                    <button class="add-btn" onclick="addToCart('Hoodie', 54.99)">Add</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">🎽</div>
+            <div class="product-info">
+                <div class="product-name">Joggers</div>
+                <div class="product-desc">Comfortable athletic wear. Tapered fit.</div>
+                <div class="product-footer">
+                    <span class="price">$39.99</span>
+                    <button class="add-btn" onclick="addToCart('Joggers', 39.99)">Add</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>🌙 LUNA MORENA</h3>
+                <p>Premium merchandise for fans everywhere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Shop</h3>
+                <a href="#merch">All Products</a>
+                <a href="#merch">New Arrivals</a>
+                <a href="#merch">Best Sellers</a>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <a href="#">Shipping Info</a>
+                <a href="#">Returns</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Follow</h3>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+                <a href="#">TikTok</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Luna Morena Merch. All rights reserved.</p>
+        </div>
+    </section>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCart()">&times;</span>
+            <h2 style="margin-bottom: 20px;">Shopping Cart</h2>
+            <div id="cartItems"></div>
+            <div id="cartTotal" style="font-size: 18px; font-weight: bold; margin-top: 20px; color: #00d4ff;"></div>
+            <button class="cta-button checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartCount();
+            alert(`${name} added to cart!`);
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        function openCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+                cartTotal.innerHTML = '';
+            } else {
+                let total = 0;
+                cartItems.innerHTML = cart.map((item, i) => {
+                    total += item.price;
+                    return `
+                        <div class="cart-item">
+                            <span>${item.name}</span>
+                            <div>
+                                <span style="margin-right: 20px;">$${item.price.toFixed(2)}</span>
+                                <button onclick="removeFromCart(${i})" style="background: #a84ef8; color: #fff; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Remove</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                cartTotal.innerHTML = `Total: $${total.toFixed(2)}`;
+            }
+            
+            document.getElementById('cartModal').style.display = 'block';
+        }
+
+        function closeCart() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            openCart();
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            alert('Thank you for your order! Proceeding to payment...');
+            cart = [];
+            updateCartCount();
+            closeCart();
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('cartModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
